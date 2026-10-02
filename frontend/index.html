@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AgendaYA — TP6</title>
+    <link rel="stylesheet" href="/frontend/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>AgendaYA</h1>
+      <p>Prototipo de testing automatizado · M03 y M04</p>
+    </header>
+    <main>
+      <section>
+        <h2>M03 · Tipos de evento (administrador simulado)</h2>
+        <form data-cy="event-form" novalidate>
+          <label>Nombre<input data-cy="event-name" name="nombre" /></label
+          ><label
+            >Duración (minutos)<input data-cy="event-duration" name="duracion" type="number"
+          /></label>
+          <label
+            >Modalidad<select data-cy="event-mode" name="modalidad">
+              <option value="Virtual">Virtual</option>
+              <option value="Presencial">Presencial</option>
+            </select></label
+          >
+          <label
+            >Confirmación<select data-cy="event-confirmation" name="confirmacion">
+              <option value="Automática">Automática</option>
+              <option value="Manual">Manual</option>
+            </select></label
+          >
+          <label
+            >Descripción (opcional)<textarea
+              data-cy="event-description"
+              name="descripcion"
+            ></textarea>
+          </label>
+          <button data-cy="save-event" type="submit">Guardar evento</button
+          ><button data-cy="cancel-edit" type="button">Cancelar edición</button>
+        </form>
+        <div data-cy="event-errors" role="alert" class="error" hidden></div>
+        <p data-cy="event-success" role="status" hidden></p>
+        <ul data-cy="event-list"></ul>
+      </section>
+      <section>
+        <h2>M04 · Reserva pública</h2>
+        <p>Perfil público de demostración · sin crear cuenta</p>
+        <label>Tipo de evento<select data-cy="booking-event"></select></label
+        ><label>Fecha<select data-cy="booking-date"></select></label>
+        <p data-cy="date-error" role="alert" class="error" hidden></p>
+        <div data-cy="booking-slots"></div>
+        <p data-cy="selected-slot" role="status"></p>
+        <form data-cy="booking-form" novalidate>
+          <label>Nombre completo<input data-cy="guest-name" name="nombre" /></label
+          ><label>Email<input data-cy="guest-email" name="email" type="text" /></label
+          ><label
+            >Teléfono (opcional)<input data-cy="guest-phone" name="telefono" type="tel" /></label
+          ><label>Nota (opcional)<textarea data-cy="guest-note" name="nota"></textarea></label
+          ><button data-cy="confirm-booking" type="submit">Confirmar reserva</button>
+        </form>
+        <p data-cy="booking-errors" role="alert" class="error" hidden></p>
+        <p data-cy="booking-success" role="status" hidden></p>
+      </section>
+    </main>
+    <script type="module" src="/frontend/app.js"></script>
+  </body>
+</html>

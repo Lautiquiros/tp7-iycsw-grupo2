@@ -1,0 +1,77 @@
+name: CI AgendaYA
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+      - 'hotfix/**'
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  calidad:
+    name: Calidad (formato, linter, tests, build)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias (npm ci)
+        run: npm ci
+
+      - name: Formato (Prettier)
+        run: npm run format:check
+
+      - name: Linter (ESLint)
+        run: npm run lint
+
+      - name: Tests unitarios
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  e2e:
+    name: Pruebas E2E (Cypress)
+    runs-on: ubuntu-latest
+    needs: calidad
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Ejecutar Cypress contra el servidor local
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:3000'
+
+      - name: Subir screenshots de los fallos
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+
+      - name: Subir videos de la corrida
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore

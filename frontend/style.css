@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font:
+    16px system-ui,
+    sans-serif;
+  background: #f4f6fa;
+  color: #17243c;
+  margin: 0;
+}
+header {
+  background: #173c75;
+  color: white;
+  padding: 12px 24px;
+}
+main {
+  max-width: 1000px;
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+section {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px #ccd3df;
+}
+label {
+  display: block;
+  margin: 12px 0;
+}
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+button {
+  padding: 9px;
+  margin: 5px;
+  cursor: pointer;
+}
+li {
+  padding: 8px;
+}
+.error {
+  color: #b00020;
+}
+[hidden] {
+  display: none !important;
+}
+.selected {
+  background: #c0eaca;
+}
+@media (max-width: 720px) {
+  main {
+    grid-template-columns: 1fr;
+    margin: 12px;
+  }
+}
