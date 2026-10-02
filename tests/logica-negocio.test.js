@@ -93,3 +93,9 @@ test('Lucas: teléfono ausente permitido', () =>
   ));
 test('Lucas: fecha pasada no reservable', () =>
   assert.ok(validarReserva(reserva, '2026-07-05', '09:00', hoy, ['09:00']).horario));
+test('INC-0731: horario reservado por otro invitado no se ofrece ni se acepta', () => {
+  const reservados = ['2026-07-07|10:00', '2026-07-07|11:00'];
+  const libres = horariosDisponibles(['10:00', '11:00', '12:00'], reservados, fecha, hoy);
+  assert.deepEqual(libres, ['12:00']);
+  assert.ok(validarReserva(reserva, fecha, '10:00', hoy, libres).horario);
+});
