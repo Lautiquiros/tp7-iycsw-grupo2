@@ -42,7 +42,9 @@ export function obtenerDiasDisponibles(hoy, diasConSlots) {
   return diasConSlots.filter((d) => d.slice(0, 7) === anioMes && d >= hoy).sort();
 }
 export function horariosDisponibles(horarios, reservados, fecha, hoy) {
-  return horarios.filter((h) => `${fecha}T${h}` > `${hoy}T08:00`);
+  return horarios.filter(
+    (h) => !reservados.includes(fecha + '|' + h) && fecha + 'T' + h > hoy + 'T08:00',
+  );
 }
 export function validarReserva(datos, fecha, hora, hoy, libres) {
   const errors = {};
